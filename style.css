@@ -1,0 +1,9 @@
+
+.ui-slider-tick-mark{
+    display:inline-block;
+    width:2px;
+    background:black;
+    height:30px;
+    position:absolute;
+    top: -75%;
+}

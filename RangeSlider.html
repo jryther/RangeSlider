@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Range slider</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#slider-range" ).slider({
+                range: true,
+                min: -5,
+                max: 5,
+                values: [ -1, 1 ],
+                create: function( event, ui ) {
+                    setSliderTicks(event.target);
+                },
+                slide: function( event, ui ) {
+                    $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                }
+            });
+            $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+                " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+        } );
+
+        function setSliderTicks(el) {
+            var $slider =  $(el);
+            var max =  $slider.slider("option", "max");
+            var min =  $slider.slider("option", "min");
+            var spacing =  100 / (max - min);
+
+            $slider.find('.ui-slider-tick-mark').remove();
+            for (var i = 0; i < max-min ; i++) {
+                    $('<span class="ui-slider-tick-mark"></span>').css('left', (spacing * i) +  '%').appendTo($slider);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="slider-range"/>
+</body>
+</html>
